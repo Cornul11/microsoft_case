@@ -4,6 +4,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 
 import 'antd/dist/antd.css';
 import Requester from "./Requester";
+import Dropzone from "./Dropzone";
 
 
 const { SubMenu } = Menu;
@@ -63,6 +64,7 @@ function App() {
                         }}
                     >
                         Content
+                        <Dropzone />
                         <Requester />
                     </Content>
                 </Layout>
