@@ -8,10 +8,14 @@ from pytesseract import pytesseract
 
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
+
 import re
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
+
+load_dotenv()
 
 
 def get_text_from_file(filename):
@@ -106,8 +110,10 @@ def hello_world():
     elif request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            uploaded_file.save(uploaded_file.filename)
-        return redirect(url_for('hello_world'))
+            uploaded_file.save('uploads/' + uploaded_file.filename)
+            print(get_text_from_file('uploads/' + uploaded_file.filename))
+            import time
+        return jsonify(string=get_text_from_file('uploads/' + uploaded_file.filename))
 
 
 @app.route('/GetTokenAndSubdomain', methods=['GET'])
@@ -125,13 +131,13 @@ def get_token_and_subdomain():
 
             resp = requests.post('https://login.windows.net/' + str(os.environ.get('TENANT_ID')) + '/oauth2/token',
                                  data=data, headers=headers)
-            jsonResp = resp.json()
+            json_resp = resp.json()
 
-            if 'access_token' not in jsonResp:
-                print(jsonResp)
+            if 'access_token' not in json_resp:
+                print(json_resp)
                 raise Exception('AAD Authentication error')
 
-            token = jsonResp['access_token']
+            token = json_resp['access_token']
             subdomain = str(os.environ.get('SUBDOMAIN'))
 
             return jsonify(token=token, subdomain=subdomain)
