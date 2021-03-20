@@ -41,6 +41,7 @@ function App() {
                             </Route>
                             <Route path="/">
                                 <Home/>
+                                <div id="mesh"/>
                             </Route>
                         </Switch>
                     </div>
