@@ -1,4 +1,5 @@
 import re
+import json
 
 from PIL import Image
 from azure.ai.textanalytics import TextAnalyticsClient
@@ -90,3 +91,34 @@ def get_text_from_file(filename):
         custom_analysis(data)
 
         return data
+
+def get_lab_result_refs(filename : str) -> str:
+    res = ''
+    with open('lab_refs.json', mode='r', encoding='utf-8') as file:
+        lab_ref_results = json.load(file)
+    with open(filename, mode='r') as file:
+        lines = file.read().splitlines()
+    for line in lines:
+        stripped = line.split(' ')
+        test_name = stripped[0]
+        gender = ''
+        if 'male' in stripped[1]:
+            gender = stripped[1]
+            value = float(stripped[2])
+        elif stripped[1].replace('.','',1).isdigit():
+            value = float(stripped[1])
+        else:
+            test_name = test_name + ' ' + stripped[1]
+            value = float(stripped[2])
+        key = test_name + gender.lower()
+        min, max, refs = lab_ref_results[key]
+        if value < min:
+            res += 'Value ' + str(value) + ' of ' + test_name + ' is bellow minimum of ' + str(min) + '\n'
+        elif value > max:
+            res += 'Value ' + str(value) + ' of ' + test_name + ' is above maximum of ' + str(max) + '\n'
+        else:
+            res += 'Value ' + str(value) + ' of ' + test_name + ' is within the norms\n'
+        res += 'Normal values for this test are:\n'
+        res += refs
+        res += '\n\n'
+    return res
