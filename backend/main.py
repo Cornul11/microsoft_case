@@ -14,8 +14,10 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
 
-def getTextFromFile(filename):
+
+def get_text_from_file(filename):
     path_to_tesseract = r"/usr/bin/tesseract"
     # filename = r"pr.pdf"
 
@@ -33,11 +35,11 @@ def getTextFromFile(filename):
     else:
         parsed_pdf = parser.from_file(filename)
         data = parsed_pdf['content']
-        print(getKeyWords(data))
+        print(get_key_words(data))
         return data
 
 
-def getKeyWords(text):
+def get_key_words(text):
     # account settings
     credential = AzureKeyCredential("c02c15f9208d42c38e60c88a41a991f0")
     endpoint = "https://westeurope.api.cognitive.microsoft.com/"
@@ -54,10 +56,6 @@ def getKeyWords(text):
     return result[0].key_phrases
 
 
-@app.route('/')
-load_dotenv()
-
-
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
     if request.method == 'GET':
@@ -65,8 +63,10 @@ def hello_world():
     elif request.method == 'POST':
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            uploaded_file.save(uploaded_file.filename)
-        return redirect(url_for('hello_world'))
+            uploaded_file.save('uploads/' + uploaded_file.filename)
+            print(get_text_from_file('uploads/' + uploaded_file.filename))
+            import time
+        return jsonify(string=get_text_from_file('uploads/' + uploaded_file.filename))
 
 
 @app.route('/GetTokenAndSubdomain', methods=['GET'])
@@ -84,13 +84,13 @@ def get_token_and_subdomain():
 
             resp = requests.post('https://login.windows.net/' + str(os.environ.get('TENANT_ID')) + '/oauth2/token',
                                  data=data, headers=headers)
-            jsonResp = resp.json()
+            json_resp = resp.json()
 
-            if 'access_token' not in jsonResp:
-                print(jsonResp)
+            if 'access_token' not in json_resp:
+                print(json_resp)
                 raise Exception('AAD Authentication error')
 
-            token = jsonResp['access_token']
+            token = json_resp['access_token']
             subdomain = str(os.environ.get('SUBDOMAIN'))
 
             return jsonify(token=token, subdomain=subdomain)
@@ -102,4 +102,4 @@ def get_token_and_subdomain():
 
 @app.route('/image-to-text/<filename>')
 def image_to_text(filename):
-    return getTextFromFile(str(filename) + '.pdf')
+    return get_text_from_file(str(filename) + '.pdf')

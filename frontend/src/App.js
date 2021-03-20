@@ -15,6 +15,7 @@ import {
     Link
 } from 'react-router-dom';
 import Bot from "./Bot";
+import Dropzone from "./Dropzone";
 
 const {Header, Footer, Content} = Layout;
 
@@ -35,13 +36,13 @@ function App() {
                         <Switch>
                             <Route path="/webanalyser">
                                 <BodyOverview/>
+                                <Dropzone/>
                             </Route>
                             <Route path="/chatbot">
                                 <Bot/>
                             </Route>
                             <Route path="/">
                                 <Home/>
-
                             </Route>
                         </Switch>
                     </div>
