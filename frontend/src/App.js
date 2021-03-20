@@ -4,7 +4,6 @@ import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/ic
 
 import 'antd/dist/antd.css';
 import Requester from "./Requester";
-import Dropzone from "./Dropzone";
 
 
 const {SubMenu} = Menu;
@@ -71,28 +70,31 @@ function App() {
                         {/*<Dropzone />*/}
                         {/*<Requester />*/}
 
-                        <div id="bot" style={{leftstyle}}/>
-                        <div id="drag" style={{
-                            border: 'dashed grey 4px',
-                            backgroundColor: 'rgba(212,209,209,0.8)',
-                            // position: 'absolute',
-                            top: 0,
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            zIndex: 9999,
-                            width: "50%",
-                            float: "right",
-                            color: "green",
-                            font: "bold large serif",
-                            display: "flex",
-                            align: "center"
-                        }}>
-                            <p>Hello</p>
+                        {/*<div id="bot" style={{leftstyle}}/>*/}
+                        {/*<div id="drag" style={{*/}
+                        {/*    border: 'dashed grey 4px',*/}
+                        {/*    backgroundColor: 'rgba(212,209,209,0.8)',*/}
+                        {/*    // position: 'absolute',*/}
+                        {/*    top: 0,*/}
+                        {/*    bottom: 0,*/}
+                        {/*    left: 0,*/}
+                        {/*    right: 0,*/}
+                        {/*    zIndex: 9999,*/}
+                        {/*    width: "50%",*/}
+                        {/*    float: "right",*/}
+                        {/*    color: "green",*/}
+                        {/*    font: "bold large serif",*/}
+                        {/*    display: "flex",*/}
+                        {/*    align: "center"*/}
+                        {/*}}>*/}
+                        <p>Hello</p>
 
-                        </div>
-                        <div id="mesh"/>
-
+                        {/*</div>*/}
+                        {/*<div id="view"/>*/}
+                        <iframe
+                            src="https://human.biodigital.com/viewer?id=production/maleAdult/covid_19_mild_severe_critical_symptom_tour_labeled&lang=en&dk= 76851f8df6e5631f068af1038976b4015b521daa"
+                            width="500" height="500">
+                        </iframe>
                         <Requester/>
                     </Content>
                 </Layout>
