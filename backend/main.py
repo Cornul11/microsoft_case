@@ -1,4 +1,6 @@
-from flask import Flask
+import os
+import requests
+from flask import Flask, request, redirect, url_for, jsonify
 from flask_cors import CORS
 from tika import parser
 from PIL import Image
@@ -6,6 +8,8 @@ from pytesseract import pytesseract
 
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.textanalytics import TextAnalyticsClient
+
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
@@ -51,8 +55,49 @@ def getKeyWords(text):
 
 
 @app.route('/')
+load_dotenv()
+
+
+@app.route('/', methods=['GET', 'POST'])
 def hello_world():
-    return 'Hello, World!'
+    if request.method == 'GET':
+        return 'Hello, World!'
+    elif request.method == 'POST':
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            uploaded_file.save(uploaded_file.filename)
+        return redirect(url_for('hello_world'))
+
+
+@app.route('/GetTokenAndSubdomain', methods=['GET'])
+def get_token_and_subdomain():
+    """Get the access token"""
+    if request.method == 'GET':
+        try:
+            headers = {'content-type': 'application/x-www-form-urlencoded'}
+            data = {
+                'client_id': str(os.environ.get('CLIENT_ID')),
+                'client_secret': str(os.environ.get('CLIENT_SECRET')),
+                'resource': 'https://cognitiveservices.azure.com/',
+                'grant_type': 'client_credentials'
+            }
+
+            resp = requests.post('https://login.windows.net/' + str(os.environ.get('TENANT_ID')) + '/oauth2/token',
+                                 data=data, headers=headers)
+            jsonResp = resp.json()
+
+            if 'access_token' not in jsonResp:
+                print(jsonResp)
+                raise Exception('AAD Authentication error')
+
+            token = jsonResp['access_token']
+            subdomain = str(os.environ.get('SUBDOMAIN'))
+
+            return jsonify(token=token, subdomain=subdomain)
+        except Exception as e:
+            message = 'Unable to acquire Azure AD token. Check the debugger for more information.'
+            print(message, e)
+            return jsonify(error=message)
 
 
 @app.route('/image-to-text/<filename>')
