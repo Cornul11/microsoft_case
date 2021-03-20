@@ -10,6 +10,7 @@
     "java": "^0.12.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-dropzone": "^11.3.1",
     "react-scripts": "4.0.3",
     "react-simple-chatbot": "^0.6.1",
     "react-spring": "^8.0.27",

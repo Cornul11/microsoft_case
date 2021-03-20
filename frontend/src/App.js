@@ -4,6 +4,7 @@ import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/ic
 
 import 'antd/dist/antd.css';
 import Requester from "./Requester";
+import Dropzone from "./Dropzone";
 
 
 const {SubMenu} = Menu;
@@ -66,6 +67,9 @@ function App() {
                             minHeight: 280,
                         }}
                     >
+                        {/*Content*/}
+                        {/*<Dropzone />*/}
+                        {/*<Requester />*/}
 
                         <div id="bot" style={{leftstyle}}/>
                         <div id="drag" style={{
