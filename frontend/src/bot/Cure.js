@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ChatBot, {Loading} from 'react-simple-chatbot';
+import {Loading} from 'react-simple-chatbot';
 
 class Cure extends Component {
     constructor(props) {

@@ -20,9 +20,6 @@ class DBPedia extends Component {
 
     componentWillMount() {
         const self = this;
-        const {steps} = this.props;
-        const search = steps.search.value;
-        const endpoint = encodeURI('https://dbpedia.org');
         const query = encodeURI(`
       select * where {
       ?x rdfs:label "Near-sightedness"@en .

@@ -9,6 +9,12 @@ import Requester from "./Requester";
 const {SubMenu} = Menu;
 const {Header, Sider, Content} = Layout;
 
+const leftstyle = {
+    width: "50%",
+    float: "left"
+};
+
+
 function App() {
     return (
         <Layout>
@@ -60,7 +66,28 @@ function App() {
                             minHeight: 280,
                         }}
                     >
-                        <div id="bot"></div>
+
+                        <div id="bot" style={{leftstyle}}/>
+                        <div id="drag" style={{
+                            border: 'dashed grey 4px',
+                            backgroundColor: 'rgba(212,209,209,0.8)',
+                            // position: 'absolute',
+                            top: 0,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            zIndex: 9999,
+                            width: "50%",
+                            float: "right",
+                            color: "green",
+                            font: "bold large serif",
+                            display: "flex",
+                            align: "center"
+                        }}>
+                            <p>Hello</p>
+
+                        </div>
+
                         <Requester/>
                     </Content>
                 </Layout>

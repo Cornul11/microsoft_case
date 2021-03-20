@@ -3,11 +3,6 @@ import DragAndDrop from './DragAndDrop'
 class FileList extends Component {
 state = {
     files: [
-      'nice.pdf',
-      'verycool.jpg',
-      'amazing.png',
-      'goodstuff.mp3',
-      'thankyou.doc'
     ]
   }
  handleDrop = (files) => {
@@ -22,6 +17,13 @@ render() {
     return (
       <DragAndDrop handleDrop={this.handleDrop}>
         <div style={{height: 300, width: 250}}>
+            <p style={{
+                            float: "right",
+                            color: "green",
+                            font: "bold 15pt serif",
+                            display: "flex",
+                transform: "translate(0, 500%)",
+                            align: "center"}}>Drag and drop files here</p>
           {this.state.files.map((file) =>
             <div>{file}</div>
           )}

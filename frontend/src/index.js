@@ -7,6 +7,7 @@ import App from "./App"
 import DragAndDrop from "./DragAndDrop";
 import DBPedia from "./bot/DBPedia";
 import {ThemeProvider} from "styled-components";
+import FileList from "./FileList";
 
 ReactDOM.render(<DragAndDrop />, document.getElementById('root'));
 // all available props
@@ -22,6 +23,7 @@ const theme = {
   userFontColor: '#4a4a4a',
 };
 
+
 ReactDOM.render(<React.StrictMode>
         <App/>
     </React.StrictMode>,
@@ -30,6 +32,13 @@ ReactDOM.render(<React.StrictMode>
 ReactDOM.render(<ThemeProvider theme={theme}>
     <DBPedia />;
   </ThemeProvider>, document.getElementById('bot'));
+
+ReactDOM.render(<ThemeProvider theme={theme}>
+    <FileList>
+        <div style={{height: 300, width: 250}}>
+        </div>
+      </FileList>;
+  </ThemeProvider>, document.getElementById('drag'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
