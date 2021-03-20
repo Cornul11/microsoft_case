@@ -3,6 +3,8 @@ import { Layout, Menu, Breadcrumb } from "antd";
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 import 'antd/dist/antd.css';
+import Requester from "./Requester";
+
 
 const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
@@ -61,6 +63,7 @@ function App() {
                         }}
                     >
                         Content
+                        <Requester />
                     </Content>
                 </Layout>
             </Layout>
