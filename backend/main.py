@@ -1,14 +1,8 @@
 import os
-
 import requests
 from flask import Flask, request, redirect, url_for, jsonify
 from flask_cors import CORS
-import sys
-
 from dotenv import load_dotenv
-from os import environ
-from requests import post
-import json
 
 app = Flask(__name__)
 CORS(app)
@@ -28,8 +22,8 @@ def hello_world():
 
 
 @app.route('/GetTokenAndSubdomain', methods=['GET'])
-def getTokenAndSubdomain():
-    'Get the access token'
+def get_token_and_subdomain():
+    """Get the access token"""
     if request.method == 'GET':
         try:
             headers = {'content-type': 'application/x-www-form-urlencoded'}
@@ -44,7 +38,7 @@ def getTokenAndSubdomain():
                                  data=data, headers=headers)
             jsonResp = resp.json()
 
-            if ('access_token' not in jsonResp):
+            if 'access_token' not in jsonResp:
                 print(jsonResp)
                 raise Exception('AAD Authentication error')
 

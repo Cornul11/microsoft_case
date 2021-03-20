@@ -1,5 +1,8 @@
 import './App.css';
 import {Layout, Menu, Breadcrumb} from "antd";
+import Mesh from "./TextMesh";
+import { Suspense } from 'react';
+import BodyOverview from "./BodyOverview.js";
 
 import 'antd/dist/antd.css';
 import Home from "./Home.js";
@@ -26,22 +29,17 @@ function App() {
                     </Menu>
                 </Header>
                 <Content style={{padding: '0 50px'}}>
-                    <Breadcrumb style={{margin: '16px 0'}}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
                     <div className="site-layout-content">
                         <Switch>
                             <Route path="/webanalyser">
-                                Dan
+                                <BodyOverview/>
                             </Route>
                             <Route path="/chatbot">
                                 <Bot/>
                             </Route>
                             <Route path="/">
                                 <Home/>
-                                <div id="mesh"/>
+
                             </Route>
                         </Switch>
                     </div>

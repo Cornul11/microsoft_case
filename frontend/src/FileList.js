@@ -59,12 +59,13 @@ class FileList extends Component {
                         }}>Drag and drop files here</p>
                     </div>
                 </DragAndDrop>
-                <aside>
-                    <h4>Files</h4>
-                    <ul>
-                        {this.files()}
-                    </ul>
-                </aside>
+                {this.state.files.length === 0 ? <></> :
+                    <aside>
+                        <h4>Files</h4>
+                        <ul>
+                            {this.files()}
+                        </ul>
+                    </aside>}
             </div>
         )
     }
