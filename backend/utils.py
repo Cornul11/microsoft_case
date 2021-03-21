@@ -159,4 +159,4 @@ def get_title(url: str) -> str:
     reqs = requests.get(url)
     soup = BeautifulSoup(reqs.text, 'html.parser')
 
-    return soup.find('title')
+    return soup.find('title').get_text()
