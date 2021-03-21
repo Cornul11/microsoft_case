@@ -25,12 +25,13 @@ class Analyser extends React.Component {
 
     submitRequest() {
         fetch("http://127.0.0.1:5000/analysis?url=" + this.state.value)
-            .then(res => res.text())
+            .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         loadingState: false,
-                        text: result,
+                        text: result.string,
+                        title: result.title,
                         disabledState: false
                     });
                 },
@@ -56,13 +57,13 @@ class Analyser extends React.Component {
         return (<div>
                 <Search placeholder="input url" enterButton="Analyse"
                         onPressEnter={this.onPressEnter} size="large"
-                        style={{width: "90.4%"}}
+                        style={{width: "75%"}}
                         onSearch={this.onSearch}
                         onChange={this.onChange}
                         loading={this.state.loadingState}/>
                 <ImmersiveReader
                     style={{height: '40px'}}
-                    title={"test title"}
+                    title={this.state.title}
                     text={this.state.text}
                     locale={"en"}
                     tokenURL="http://127.0.0.1:5000/GetTokenAndSubdomain"
@@ -70,7 +71,7 @@ class Analyser extends React.Component {
                 />
                 <div className="article">
                     <Skeleton loading={this.state.loadingState}>
-                        <p>{this.state.text}</p>
+                        <p style={{whiteSpace: "pre-wrap"}}>{this.state.text}</p>
                     </Skeleton>
                 </div>
             </div>
