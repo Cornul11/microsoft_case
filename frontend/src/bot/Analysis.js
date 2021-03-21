@@ -35,7 +35,7 @@ class Analysis extends Component {
 
         function readyStateChange() {
             if (this.readyState === 4) {
-                self.setState({loading: false, result: "According to your analyzes, the visual acuity of the right eye is -2, and the left one is -1. Vision with acuity of 0 is considered normal, therefore it is below normal and is a sign of myopia."});
+                self.setState({loading: false, result: "According to your analyzes, the visual acuity of the right eye is -2, and the left one is -1. Vision with acuity of 0 is considered normal, so it is below normal and is a sign of myopia."});
             }
         }
 

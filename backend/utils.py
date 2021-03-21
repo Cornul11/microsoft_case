@@ -41,7 +41,7 @@ def get_visual_summary(filename):
     text = get_text_from_file(filename)
     text_dict = custom_analysis(text)
     text_dict[
-        'Keedback'] = ' based on the information provided it could be concluded that you have a mild for of desease'
+        'Feedback'] = ' based on the information provided it could be concluded that you have a mild for of desease'
     result = ""
     for key in text_dict:
         result = result + '\n' + key
@@ -50,6 +50,12 @@ def get_visual_summary(filename):
         else:
             result += " none"
     return result
+
+
+def get_param_util(filename, param):
+    text = get_text_from_file(filename)
+    text_dict = custom_analysis(text)
+    return text_dict[param]
 
 
 def custom_analysis(text):

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import  {Loading} from 'react-simple-chatbot';
 
-class Advise extends Component {
+class Diagnosis extends Component {
     constructor(props) {
         super(props);
 
@@ -17,17 +17,14 @@ class Advise extends Component {
 
     componentWillMount() {
         const self = this;
-        const {steps} = this.props;
-        const search = steps.advise.value;
         const query = encodeURI(`
       select * where {
-      ?x rdfs:label "${search}"@en .
+      ?x rdfs:label "Near-sightedness"@en .
       ?x rdfs:comment ?comment .
       FILTER (lang(?comment) = 'en')
       } LIMIT 100
     `);
-
-        const queryUrl = `https://dbpedia.org/sparql/?query=${query}&format=json`;
+        const queryUrl = `http://localhost:3004/diagnosis/prescription`;
 
         const xhr = new XMLHttpRequest();
 
@@ -35,13 +32,8 @@ class Advise extends Component {
 
         function readyStateChange() {
             if (this.readyState === 4) {
-                if (search === "What is my diagnosis?") {
-                    self.setState({loading: false, result: "Your diagnosis is miopia"});
-                } else if (search === "What should I do?") {
-                    self.setState({loading: false, result: 'You must drip  drops twice a day and order lenses with parameters -1 for the left eye and -2 for the right eye'});
-                } else {
-                    self.setState({loading: false, result: "Sorry, I did not understand you"});
-                }
+                const data = this.responseText;
+                self.setState({loading: false, result: "Your diagnosis is " + data});
             }
         }
 
@@ -59,7 +51,7 @@ class Advise extends Component {
         const {trigger, loading, result} = this.state;
 
         return (
-            <div className="advise">
+            <div className="diagnosis">
                 {loading ? <Loading/> : result}
                 {
                     !loading &&
@@ -79,14 +71,15 @@ class Advise extends Component {
     }
 }
 
-Advise.propTypes = {
+Diagnosis.propTypes = {
     steps: PropTypes.object,
     triggerNextStep: PropTypes.func,
 };
 
-Advise.defaultProps = {
+Diagnosis.defaultProps = {
     steps: undefined,
     triggerNextStep: undefined,
 };
 
-export default Advise
+
+export default Diagnosis;
