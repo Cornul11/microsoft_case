@@ -71,7 +71,7 @@ class Analyser extends React.Component {
                 />
                 <div className="article">
                     <Skeleton loading={this.state.loadingState}>
-                        <p style={{whiteSpace: "pre-wrap"}}>{this.state.text}</p>
+                        <p style={{whiteSpace: "pre-wrap", fontSize: 'medium'}}>{this.state.text}</p>
                     </Skeleton>
                 </div>
             </div>
