@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from summarizer import get_summary
 
-from utils import get_param_util
+from utils import get_param_util, get_title
 from utils import get_visual_summary
 from utils import get_text_from_file, get_lab_result_refs
 
@@ -44,7 +44,8 @@ def analyze_diagnosis():
 @app.route('/analysis', methods=['GET'])
 def get_summary_text():
     if request.method == 'GET':
-        return get_summary(request.args.get('url'))
+        url = request.args.get('url')
+        return jsonify(string=get_summary(url), title=get_title(url))
     return "Not opening!"
 
 

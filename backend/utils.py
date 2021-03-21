@@ -1,5 +1,4 @@
 import re
-import json
 
 from PIL import Image
 from azure.ai.textanalytics import TextAnalyticsClient
@@ -7,6 +6,8 @@ from azure.core.credentials import AzureKeyCredential
 from pytesseract import pytesseract
 from tika import parser
 import json
+import requests
+from bs4 import BeautifulSoup
 
 credential = AzureKeyCredential("c02c15f9208d42c38e60c88a41a991f0")
 
@@ -114,7 +115,7 @@ def get_text_from_file(filename):
         return data.strip()
 
 
-def get_lab_result_refs(filename : str) -> str:
+def get_lab_result_refs(filename: str) -> str:
     # referal lab result values taken from https://www.meditec.com/resourcestools/medical-reference-links/normal-lab-values
     with open('lab_refs.json', mode='r', encoding='utf-8') as file:
         lab_ref_results = json.load(file)
@@ -152,3 +153,10 @@ def get_lab_result_refs(filename : str) -> str:
         res += refs
         res += '\n\n'
     return res
+
+
+def get_title(url: str) -> str:
+    reqs = requests.get(url)
+    soup = BeautifulSoup(reqs.text, 'html.parser')
+
+    return soup.find('title')
