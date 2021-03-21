@@ -6,6 +6,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 from summarizer import get_summary
+
+from utils import get_visual_summary
 from utils import get_text_from_file
 
 app = Flask(__name__)
@@ -64,6 +66,15 @@ def get_token_and_subdomain():
             return jsonify(error=message)
 
 
-@app.route('/image-to-text/<filename>')
+@app.route('/image-to-text/<filename>', methods=['GET'])
 def image_to_text(filename):
-    return get_text_from_file(str(filename) + '.pdf')
+    if request.method == 'GET':
+        return get_text_from_file(str(filename) + '.pdf')
+    return "Not opening!"
+
+
+@app.route('/visual-summary/<filename>', methods=['GET'])
+def get_visual(filename):
+    if request.method == 'GET':
+        return get_visual_summary(filename + '.pdf')
+    return "Not opening!"
