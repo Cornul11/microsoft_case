@@ -1,5 +1,9 @@
+import {Route} from "react-router-dom";
+
 function Landing() {
-    return <p>Hello World!</p>;
+    return <div>
+        <img src="Doctor_And_Patient.jpg"/>
+    </div>;
 }
 
 export default Landing;
