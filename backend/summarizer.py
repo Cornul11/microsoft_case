@@ -71,9 +71,13 @@ def get_article_text(url: str) -> str:
         print(msg)
     return text
 
-
+# return a summary of max 1000 words
 def get_summary(url: str) -> str:
     if 'wikipedia' in urllib.parse.urlparse(url).netloc:
-        return summarize(get_wiki_text(url), ratio=0.2)
+        sentences = get_wiki_text(url)
     else:
-        return summarize(get_article_text(url), ratio=0.2)
+        sentences = get_article_text(url)
+    if len(sentences.split()) > 2000:
+        return summarize(sentences, word_count=1000).split()
+    else:
+        return summarize(sentences, ratio=0.5).split()
