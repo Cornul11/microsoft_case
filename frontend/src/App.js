@@ -1,11 +1,7 @@
 import './App.css';
-import {Layout, Menu, Breadcrumb} from "antd";
-import Mesh from "./TextMesh";
-import { Suspense } from 'react';
-import BodyOverview from "./BodyOverview.js";
+import {Layout, Menu, Breadcrumb, Input} from "antd";
 
 import 'antd/dist/antd.css';
-import Requester from "./Requester";
 
 import Home from "./Home.js";
 import {
@@ -15,9 +11,9 @@ import {
     Link
 } from 'react-router-dom';
 import Bot from "./Bot";
-import Dropzone from "./Dropzone";
 import Analyser from "./Analyser";
-import ImmersiveReader from "./ImmersiveReader";
+import Searchbar from "./SearchBar";
+
 
 const {Header, Footer, Content} = Layout;
 
@@ -45,7 +41,8 @@ function App() {
                                 <Bot/>
                             </Route>
                             <Route path="/testingbed">
-                                <BodyOverview/>
+                                {/*<BodyOverview/>*/}
+                                <Searchbar/>
                             </Route>
                             <Route path="/">
                                 <Home/>
