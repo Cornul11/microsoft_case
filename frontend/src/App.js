@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 import Bot from "./Bot";
 import Analyser from "./Analyser";
-import Searchbar from "./SearchBar";
+import SearchbarDictionary from "./SearchbarDictionary";
 
 
 const {Header, Footer, Content} = Layout;
@@ -42,7 +42,7 @@ function App() {
                             </Route>
                             <Route path="/testingbed">
                                 {/*<BodyOverview/>*/}
-                                <Searchbar/>
+                                <SearchbarDictionary/>
                             </Route>
                             <Route path="/">
                                 <Home/>

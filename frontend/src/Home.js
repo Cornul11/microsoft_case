@@ -1,10 +1,10 @@
 import React from "react";
 import FileList from "./FileList";
-import Searchbar from "./SearchBar";
+import SearchbarDictionary from "./SearchbarDictionary";
 
 function Home() {
     return (<div>
-        <Searchbar/>
+        <SearchbarDictionary/>
         <FileList/>
     </div>);
 }
