@@ -61,6 +61,7 @@ class Analyser extends React.Component {
                         onChange={this.onChange}
                         loading={this.state.loadingState}/>
                 <ImmersiveReader
+                    style={{height: '40px'}}
                     title={"test title"}
                     text={this.state.text}
                     locale={"en"}
