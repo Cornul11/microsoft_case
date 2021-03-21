@@ -13,6 +13,7 @@ import {
 import Bot from "./Bot";
 import Analyser from "./Analyser";
 import Landing from "./Landing";
+import BodyOverview from "./BodyOverview";
 
 
 const {Header, Footer, Content} = Layout;
@@ -25,9 +26,10 @@ function App() {
                     <div className="logo"/>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1"><Link to="/">Home aka Landing </Link></Menu.Item>
-                        <Menu.Item key="3"><Link to="/webanalyser">Extract info</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="/analyse">Analyse aka Дофига
+                        <Menu.Item key="2"><Link to="/webanalyser">Extract info</Link></Menu.Item>
+                        <Menu.Item key="3"><Link to="/analyse">Analyse aka Дофига
                             всего</Link></Menu.Item>
+                        <Menu.Item key="4"><Link to="/body-visualisation">Body visualisation</Link></Menu.Item>
                     </Menu>
                 </Header>
                 <Content style={{padding: '0 50px', height: '92.5vh'}}>
@@ -35,10 +37,12 @@ function App() {
                         <Switch>
                             <Route path="/webanalyser">
                                 <Analyser/>
-                                {/*<BodyOverview/> TODO: move this somewhere else */}
                             </Route>
                             <Route path="/analyse">
                                 <Home/>
+                            </Route>
+                            <Route path="/body-visualisation">
+                                <BodyOverview/>
                             </Route>
                             <Route path="/">
                                 <Landing/>
