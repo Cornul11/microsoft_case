@@ -21,6 +21,7 @@ def hello_world():
     if request.method == 'GET':
         return 'Hello, World!'
 
+
 @app.route('/analyzeLabResults', methods=['POST'])
 def analyze_lab_results():
     uploaded_file = request.files['file']
