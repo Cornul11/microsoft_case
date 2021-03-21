@@ -78,6 +78,6 @@ def get_summary(url: str) -> str:
     else:
         sentences = get_article_text(url)
     if len(sentences.split()) > 2000:
-        return summarize(sentences, word_count=1000).split()
+        return summarize(sentences, word_count=1000)
     else:
-        return summarize(sentences, ratio=0.5).split()
+        return summarize(sentences, ratio=0.5)
