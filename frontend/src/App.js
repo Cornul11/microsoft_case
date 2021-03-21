@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 import Bot from "./Bot";
 import Analyser from "./Analyser";
+import SearchbarDictionary from "./SearchbarDictionary";
 import Landing from "./Landing";
 import BodyOverview from "./BodyOverview";
 
