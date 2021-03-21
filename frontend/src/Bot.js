@@ -9,7 +9,6 @@ const leftstyle = {
 
 const theme = {
     background: '#f5f8fb',
-    fontFamily: 'Helvetica Neue',
     headerBgColor: '#91bbb3',
     headerFontColor: '#fff',
     headerFontSize: '17px',

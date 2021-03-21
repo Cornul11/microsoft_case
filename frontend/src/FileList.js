@@ -107,9 +107,10 @@ class FileList extends Component {
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     display: "flex",
-                                    transform: "translate(0, 500%)",
+                                    transform: "translate(0, 150%)",
                                     align: "center",
-                                    color: "#bdbdbd"
+                                    color: "#bdbdbd",
+                                    fontSize: "xx-large"
                                 }}>Drag and drop files here</p>
                             </div>
                         </DragAndDrop>
