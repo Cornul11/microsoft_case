@@ -4,7 +4,7 @@ import Search from "antd/es/input/Search";
 
 const {Panel} = Collapse;
 
-class Searchbar extends React.Component {
+class SearchbarDictionary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,6 +16,7 @@ class Searchbar extends React.Component {
         this.onPressEnter = this.onPressEnter.bind(this);
         this.onSearch = this.onSearch.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.submitRequest = this.submitRequest.bind(this);
     }
 
     onSearch = (value, e) => {
@@ -40,19 +41,24 @@ class Searchbar extends React.Component {
         })
             .then(r => r.json())
             .then(result => {
-                console.log(result[0].def[0].sseq[1][1][1].dt[0][1])
-                if (result[0].def[0].sseq[1][1][1].dt[0][1] > 0) {
+                if (result.hasOwnProperty(0) && result[0].hasOwnProperty('meta')) {
+                    let definition = result[0].def[0].sseq[0][0][1].dt[0][1];
+                    let dxLocalizer = definition.indexOf("{dx}") - 1;
+                    let definitionCleaned = dxLocalizer > 0 ? definition.substring(0, dxLocalizer) : definition;
+                    definitionCleaned = definitionCleaned.replace(/{[^()]*}/g, '');
                     this.setState({
-                        definition: result.def[0].sseq[0][0].sense.sdsense.dt[0][0][1],
-                        isLoading: false
+                        definition: definitionCleaned,
+                        loadingState: false
                     })
                 } else {
                     this.setState({
-                        isLoading: false,
+                        loadingState: false,
                         definition: "No definitions found"
                     })
                 }
-            })
+            }).catch((error) => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -81,4 +87,4 @@ class Searchbar extends React.Component {
     }
 }
 
-export default Searchbar;
+export default SearchbarDictionary;

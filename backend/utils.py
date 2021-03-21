@@ -40,7 +40,8 @@ def get_entities(text):
 def get_visual_summary(filename):
     text = get_text_from_file(filename)
     text_dict = custom_analysis(text)
-    text_dict['Keedback'] = ' based on the information provided it could be concluded that you have a mild for of desease'
+    text_dict[
+        'Feedback'] = ' based on the information provided it could be concluded that you have a mild for of desease'
     result = ""
     for key in text_dict:
         result = result + '\n' + key
@@ -103,22 +104,30 @@ def get_text_from_file(filename):
         text = pytesseract.image_to_string(img)
 
         # Displaying the extracted text
-        return text[:-1]
+        return text[:-1].strip()
 
     else:
         parsed_pdf = parser.from_file(filename)
         data = parsed_pdf['content']
         custom_analysis(data)
 
-        return data
+        return data.strip()
+
 
 def get_lab_result_refs(filename : str) -> str:
-    res = ''
     # referal lab result values taken from https://www.meditec.com/resourcestools/medical-reference-links/normal-lab-values
     with open('lab_refs.json', mode='r', encoding='utf-8') as file:
         lab_ref_results = json.load(file)
-    with open(filename, mode='r') as file:
-        lines = file.read().splitlines()
+    if filename.endswith('.txt'):
+        with open(filename, mode='r') as file:
+            lines = file.read().splitlines()
+    else:
+        parsed_pdf = parser.from_file(filename)
+        data = parsed_pdf['content']
+        data = data.strip()
+        data = re.sub(" \n\n", "\n", data)
+        lines = data.splitlines()
+    res = ''
     for line in lines:
         stripped = line.split(' ')
         test_name = stripped[0]
@@ -126,7 +135,7 @@ def get_lab_result_refs(filename : str) -> str:
         if 'male' in stripped[1]:
             gender = stripped[1]
             value = float(stripped[2])
-        elif stripped[1].replace('.','',1).isdigit():
+        elif stripped[1].replace('.', '', 1).isdigit():
             value = float(stripped[1])
         else:
             test_name = test_name + ' ' + stripped[1]

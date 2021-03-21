@@ -1,0 +1,5 @@
+RBC male 5.5
+WBC male 12
+Hgb male 13.5
+albumin 4.0
+alkaline phosphatase 31.0

@@ -1,5 +1,5 @@
 import './App.css';
-import {Layout, Menu, Breadcrumb, Input} from "antd";
+import {Layout, Menu} from "antd";
 
 import 'antd/dist/antd.css';
 
@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 import Bot from "./Bot";
 import Analyser from "./Analyser";
-import Searchbar from "./SearchBar";
+import SearchbarDictionary from "./SearchbarDictionary";
 
 
 const {Header, Footer, Content} = Layout;
@@ -31,7 +31,7 @@ function App() {
                     </Menu>
                 </Header>
                 <Content style={{padding: '0 50px', height: '92.5vh'}}>
-                    <div className="site-layout-content" style={{height: '85vh'}}>
+                    <div className="site-layout-content" style={{height: '85vh', overflow: 'auto'}}>
                         <Switch>
                             <Route path="/webanalyser">
                                 <Analyser/>
@@ -42,7 +42,7 @@ function App() {
                             </Route>
                             <Route path="/testingbed">
                                 {/*<BodyOverview/>*/}
-                                <Searchbar/>
+                                <SearchbarDictionary/>
                             </Route>
                             <Route path="/">
                                 <Home/>

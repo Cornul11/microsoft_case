@@ -50,8 +50,9 @@ class ImmersiveReader extends Component {
     }
 
     render() {
+        console.log(this.props.style);
         return (
-            <button style={{height: '40px', backgroundColor: this.state.backgroundColor}}
+            <button style={{...this.props.style, backgroundColor: this.state.backgroundColor}}
                     onMouseOver={this.changeColor}
                     onMouseLeave={this.revertColor}
                     onMouseOut={this.revertColor}
