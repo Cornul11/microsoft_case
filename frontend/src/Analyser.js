@@ -70,7 +70,7 @@ class Analyser extends React.Component {
                     disabled={this.state.disabledState}
                 />
                 <div className="article">
-                    <Skeleton loading={this.state.loadingState}>
+                    <Skeleton active loading={this.state.loadingState}>
                         <p style={{whiteSpace: "pre-wrap", fontSize: 'medium'}}>{this.state.text}</p>
                     </Skeleton>
                 </div>

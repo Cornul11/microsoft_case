@@ -151,7 +151,7 @@ class FileList extends Component {
                     disabled={this.state.disabledState}
                 />
                 <div className="article">
-                    <Skeleton loading={this.state.loading}>
+                    <Skeleton active loading={this.state.loading}>
                         <p style={{whiteSpace: "pre-wrap", fontSize: 'medium'}}>{this.state.text}</p>
                     </Skeleton>
                 </div>
