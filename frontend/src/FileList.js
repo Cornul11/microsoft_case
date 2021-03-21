@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import DragAndDrop from './DragAndDrop'
 import {ThemeProvider} from "styled-components";
 import {Skeleton, Radio} from "antd";
+import ImmersiveReader from "./ImmersiveReader";
 
 
 const theme = {
@@ -141,6 +142,14 @@ class FileList extends Component {
                             </aside>}
                     </ThemeProvider>
                 </div>
+                <ImmersiveReader
+                    style={{position: 'absolute', right: 75, top: 187}}
+                    title={"Medical Diagnosis"}
+                    text={this.state.text}
+                    locale={"en"}
+                    tokenURL="http://127.0.0.1:5000/GetTokenAndSubdomain"
+                    disabled={this.state.disabledState}
+                />
                 <div className="article">
                     <Skeleton loading={this.state.loading}>
                         <p style={{whiteSpace: "pre-wrap"}}>{this.state.text}</p>
