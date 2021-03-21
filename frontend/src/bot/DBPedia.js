@@ -157,6 +157,8 @@ const ExampleDBPedia = () => (
                 trigger: '0',
             },
         ]}
+        opened={false}
+        floating={true}
     />
 );
 
