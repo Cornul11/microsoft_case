@@ -94,6 +94,7 @@ def get_text_from_file(filename):
 
 def get_lab_result_refs(filename : str) -> str:
     res = ''
+    # referal lab result values taken from https://www.meditec.com/resourcestools/medical-reference-links/normal-lab-values
     with open('lab_refs.json', mode='r', encoding='utf-8') as file:
         lab_ref_results = json.load(file)
     with open(filename, mode='r') as file:
