@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChatBot, {Loading} from 'react-simple-chatbot';
-import Advise from './Advise'
+import Diagnosis from './Diagnosis'
 import Cure from "./Cure";
 import Analysis from "./Analysis";
 
@@ -104,7 +104,7 @@ const ExampleDBPedia = () => (
             },
             {
                 id: '2',
-                component: <Advise/>,
+                component: <Diagnosis/>,
                 waitAction: false,
                 trigger: '1',
             },

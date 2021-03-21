@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Loading} from 'react-simple-chatbot';
+import  {Loading} from 'react-simple-chatbot';
 
 class Cure extends Component {
     constructor(props) {
@@ -17,17 +17,14 @@ class Cure extends Component {
 
     componentWillMount() {
         const self = this;
-        const {steps} = this.props;
-        const search = steps.advise.value;
         const query = encodeURI(`
       select * where {
-      ?x rdfs:label "${search}"@en .
+      ?x rdfs:label "Near-sightedness"@en .
       ?x rdfs:comment ?comment .
       FILTER (lang(?comment) = 'en')
       } LIMIT 100
     `);
-
-        const queryUrl = `https://dbpedia.org/sparql/?query=${query}&format=json`;
+        const queryUrl = `http://localhost:3004/treatment/prescription`;
 
         const xhr = new XMLHttpRequest();
 
@@ -35,7 +32,8 @@ class Cure extends Component {
 
         function readyStateChange() {
             if (this.readyState === 4) {
-                self.setState({loading: false, result: "You must drip drops twice a day and order lenses with parameters -1 for the left eye and -2 for the right eye"});
+                const data = this.responseText;
+                self.setState({loading: false, result: "You should " + data});
             }
         }
 
@@ -53,7 +51,7 @@ class Cure extends Component {
         const {trigger, loading, result} = this.state;
 
         return (
-            <div className="advise">
+            <div className="diagnosis">
                 {loading ? <Loading/> : result}
                 {
                     !loading &&
@@ -83,4 +81,5 @@ Cure.defaultProps = {
     triggerNextStep: undefined,
 };
 
-export default Cure
+
+export default Cure;

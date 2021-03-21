@@ -51,6 +51,11 @@ def get_visual_summary(filename):
     return result
 
 
+def get_param_util(filename, param):
+    text = get_text_from_file(filename)
+    text_dict = custom_analysis(text)
+    return text_dict[param]
+
 
 def custom_analysis(text):
     txt = " ".join(re.findall(r"[a-zA-Z0-9]+", text))

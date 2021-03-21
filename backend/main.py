@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 from summarizer import get_summary
 
+from utils import get_param_util
 from utils import get_visual_summary
 from utils import get_text_from_file, get_lab_result_refs
 
@@ -88,4 +89,18 @@ def image_to_text(filename):
 def get_visual(filename):
     if request.method == 'GET':
         return get_visual_summary(filename + '.pdf')
+    return "Not opening!"
+
+
+@app.route('/diagnosis/<filename>', methods=['GET'])
+def get_diagnosis(filename):
+    if request.method == 'GET':
+        return get_param_util(filename + '.pdf', 'Diagnosis')
+    return "Not opening!"
+
+
+@app.route('/treatment/<filename>', methods=['GET'])
+def get_treatment(filename):
+    if request.method == 'GET':
+        return get_param_util(filename + '.pdf', 'Treatment')
     return "Not opening!"
