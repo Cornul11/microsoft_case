@@ -59,7 +59,7 @@ class FileList extends Component {
                 this.setState({uploaded: uploadedList});
                 let formData = new FormData();
                 formData.append('file', files[i]);
-                fetch('http://127.0.0.1:5000', {
+                fetch('http://127.0.0.1:5000/analyzeDiagnosis', {
                     method: 'POST',
                     body: formData
                 }).then(result => result.json()
