@@ -1,9 +1,19 @@
 import React, {Component} from 'react'
 import DragAndDrop from './DragAndDrop'
 import {ThemeProvider} from "styled-components";
-import {Skeleton, Radio} from "antd";
+import {Skeleton, Radio, notification} from "antd";
 import ImmersiveReader from "./ImmersiveReader";
-
+const openNotification = () => {
+    notification.open({
+        message: 'Analysis finished!',
+        duration: 10,
+        description:
+            'Here\'s the analysis of the prescription or analysis that you\'ve uploaded.',
+        onClick: () => {
+            console.log('Notification Clicked!');
+        },
+    });
+};
 
 const theme = {
     background: '#f5f8fb',
@@ -143,7 +153,7 @@ class FileList extends Component {
                     </ThemeProvider>
                 </div>
                 <ImmersiveReader
-                    style={{position: 'absolute', right: 75, top: 187}}
+                    style={{position: 'absolute', right: 75, top: 342}}
                     title={"Medical Diagnosis"}
                     text={this.state.text}
                     locale={"en"}
