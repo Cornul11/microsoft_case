@@ -6,7 +6,9 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 
 from summarizer import get_summary
-from utils import get_text_from_file
+
+from utils import get_visual_summary
+from utils import get_text_from_file, get_lab_result_refs
 
 app = Flask(__name__)
 CORS(app)
@@ -14,16 +16,27 @@ CORS(app)
 load_dotenv()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def hello_world():
     if request.method == 'GET':
         return 'Hello, World!'
-    elif request.method == 'POST':
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            uploaded_file.save('uploads/' + uploaded_file.filename)
-            print(get_text_from_file('uploads/' + uploaded_file.filename))
-        return jsonify(string=get_text_from_file('uploads/' + uploaded_file.filename))
+
+@app.route('/analyzeLabResults', methods=['POST'])
+def analyze_lab_results():
+    uploaded_file = request.files['file']
+    if uploaded_file.filename != '':
+        uploaded_file.save('uploads/' + uploaded_file.filename)
+        print(get_lab_result_refs('uploads/' + uploaded_file.filename))
+    return jsonify(string=get_lab_result_refs('uploads/' + uploaded_file.filename))
+
+
+@app.route('/analyzeDiagnosis', methods=['POST'])
+def analyze_diagnosis():
+    uploaded_file = request.files['file']
+    if uploaded_file.filename != '':
+        uploaded_file.save('uploads/' + uploaded_file.filename)
+        print(get_text_from_file('uploads/' + uploaded_file.filename))
+    return jsonify(string=get_text_from_file('uploads/' + uploaded_file.filename))
 
 
 @app.route('/analysis', methods=['GET'])
@@ -64,6 +77,15 @@ def get_token_and_subdomain():
             return jsonify(error=message)
 
 
-@app.route('/image-to-text/<filename>')
+@app.route('/image-to-text/<filename>', methods=['GET'])
 def image_to_text(filename):
-    return get_text_from_file(str(filename) + '.pdf')
+    if request.method == 'GET':
+        return get_text_from_file(str(filename) + '.pdf')
+    return "Not opening!"
+
+
+@app.route('/visual-summary/<filename>', methods=['GET'])
+def get_visual(filename):
+    if request.method == 'GET':
+        return get_visual_summary(filename + '.pdf')
+    return "Not opening!"

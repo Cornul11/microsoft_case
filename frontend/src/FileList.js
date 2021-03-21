@@ -68,7 +68,7 @@ class FileList extends Component {
                 this.setState({uploaded: uploadedList});
                 let formData = new FormData();
                 formData.append('file', files[i]);
-                let urlToUse = this.state.radioValue === 'Analysis' ? 'urlforanalysis' : 'urlforprescription';
+                let urlToUse = this.state.radioValue === 'Analysis' ? 'http://127.0.0.1:5000/analyzeDiagnosis' : 'http://127.0.0.1:5000/analyzeLabResults';
                 fetch(urlToUse, {
                     method: 'POST',
                     body: formData

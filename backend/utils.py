@@ -6,6 +6,7 @@ from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 from pytesseract import pytesseract
 from tika import parser
+import json
 
 credential = AzureKeyCredential("c02c15f9208d42c38e60c88a41a991f0")
 
@@ -34,6 +35,21 @@ def get_entities(text):
 
     print(prepared_entities)
     return prepared_entities
+
+
+def get_visual_summary(filename):
+    text = get_text_from_file(filename)
+    text_dict = custom_analysis(text)
+    text_dict['Keedback'] = ' based on the information provided it could be concluded that you have a mild for of desease'
+    result = ""
+    for key in text_dict:
+        result = result + '\n' + key
+        if text_dict[key]:
+            result += text_dict[key]
+        else:
+            result += " none"
+    return result
+
 
 
 def custom_analysis(text):
@@ -87,7 +103,6 @@ def get_text_from_file(filename):
     else:
         parsed_pdf = parser.from_file(filename)
         data = parsed_pdf['content']
-        print(get_keywords(data))
         custom_analysis(data)
 
         return data
