@@ -31,7 +31,7 @@ function App() {
                     </Menu>
                 </Header>
                 <Content style={{padding: '0 50px', height: '92.5vh'}}>
-                    <div className="site-layout-content" style={{height: '85vh'}}>
+                    <div className="site-layout-content" style={{height: '85vh', overflow: 'auto'}}>
                         <Switch>
                             <Route path="/webanalyser">
                                 <Analyser/>
