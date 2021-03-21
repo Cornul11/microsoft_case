@@ -108,13 +108,20 @@ def get_text_from_file(filename):
         return data.strip()
 
 
-def get_lab_result_refs(filename: str) -> str:
-    res = ''
+def get_lab_result_refs(filename : str) -> str:
     # referal lab result values taken from https://www.meditec.com/resourcestools/medical-reference-links/normal-lab-values
     with open('lab_refs.json', mode='r', encoding='utf-8') as file:
         lab_ref_results = json.load(file)
-    with open(filename, mode='r') as file:
-        lines = file.read().splitlines()
+    if filename.endswith('.txt'):
+        with open(filename, mode='r') as file:
+            lines = file.read().splitlines()
+    else:
+        parsed_pdf = parser.from_file(filename)
+        data = parsed_pdf['content']
+        data = data.strip()
+        data = re.sub(" \n\n", "\n", data)
+        lines = data.splitlines()
+    res = ''
     for line in lines:
         stripped = line.split(' ')
         test_name = stripped[0]
