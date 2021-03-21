@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import DragAndDrop from './DragAndDrop'
 import {ThemeProvider} from "styled-components";
-import {Skeleton} from "antd";
+import {Skeleton, Radio} from "antd";
+
 
 const theme = {
     background: '#f5f8fb',
@@ -15,6 +16,11 @@ const theme = {
     userFontColor: '#4a4a4a',
 };
 
+const options = [
+    {label: 'Analysis', value: 'Analysis'},
+    {label: 'Prescription', value: 'Prescription'},
+];
+
 class FileList extends Component {
     constructor(props) {
         super(props);
@@ -23,14 +29,17 @@ class FileList extends Component {
             uploaded: [],
             loading: false,
             text: '',
-            debugMode: false
+            debugMode: false,
+            radioValue: 'Analysis'
         }
-        this.fetchSuccess = this.fetchSuccess.bind(this);
     }
 
-    fetchSuccess() {
-
-    }
+    onChange4 = e => {
+        console.log('radio4 checked', e.target.value);
+        this.setState({
+            radioValue: e.target.value,
+        });
+    };
 
     handleDrop = (files) => {
         let fileList = this.state.files
@@ -59,14 +68,14 @@ class FileList extends Component {
                 this.setState({uploaded: uploadedList});
                 let formData = new FormData();
                 formData.append('file', files[i]);
-                fetch('http://127.0.0.1:5000', {
+                let urlToUse = this.state.radioValue === 'Analysis' ? 'urlforanalysis' : 'urlforprescription';
+                fetch(urlToUse, {
                     method: 'POST',
                     body: formData
                 }).then(result => result.json()
                 ).then((success) => {
                     this.setState({loading: false, text: success.string});
                     console.log(success);
-                    // this.fetchSuccess();
                     return success;
                 }).catch(
                     error => console.log(error)
@@ -81,7 +90,16 @@ class FileList extends Component {
     }
 
     render() {
+        const {radioValue} = this.state;
         return (<div>
+                <Radio.Group
+                    style={{paddingTop: '15px', paddingBottom: '8px'}}
+                    options={options}
+                    onChange={this.onChange4}
+                    value={radioValue}
+                    optionType="button"
+                    buttonStyle="solid"
+                />
                 <div id="drag" style={{
                     // border: 'dashed grey 4px',
                     borderWidth: '2px',
