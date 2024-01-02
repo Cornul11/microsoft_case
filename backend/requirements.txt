@@ -63,7 +63,7 @@ tinysegmenter==0.3
 tldextract==3.1.0
 toolz==0.11.1
 tqdm==4.59.0
-urllib3==1.26.5
+urllib3==1.26.18
 wasabi==0.8.2
 Werkzeug==1.0.1
 wikipedia==1.4.0
